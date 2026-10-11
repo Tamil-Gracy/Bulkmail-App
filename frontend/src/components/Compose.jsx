@@ -16,7 +16,9 @@ const Compose = (props) => {
    const [loading, setLoading] = useState(false);
    const setActiveNav = props.setActiveNav;
    const activeNav = props.activeNav;
-   const navigate = useNavigate();
+   const API_URL = import.meta.env.VITE_API_URL;
+
+
    const handleFileChange = (e) => {
       const file = e.target.files[0];   // the real file
       if (!file) return;    
@@ -79,7 +81,7 @@ const Compose = (props) => {
          setFieldError({subject: "", recipient: "", message: ""});
          try {
             setLoading(true)
-            const response = await axios.post("http://localhost:5000/api/sendmail", {
+            const response = await axios.post(`${API_URL}/api/sendmail`, {
                subject,
                emails,
                message

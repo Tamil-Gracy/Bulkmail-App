@@ -5,7 +5,7 @@ import Compose from "./Compose"
 import { useNavigate, useLocation } from "react-router-dom"
 import { AuthContext } from "../AuthContext.jsx";
 import axios from "axios"
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
    const navigate = useNavigate();

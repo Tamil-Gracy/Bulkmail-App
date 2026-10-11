@@ -3,15 +3,16 @@ import ReactDom from "react-dom"
 import axios from "axios"
 import { useState, useEffect } from "react"
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const History = () => {
    const [records, setRecords] = useState([]);   // start with an empty list
    const [loading, setLoading] = useState(true);
+   
    useEffect(() => {
       const getData = async () => {
          try {
-            const res = await axios.get("http://localhost:5000/api/history");
+            const res = await axios.get(`${API_URL}/api/history`);
             setRecords(res.data);
          } catch (err) {
             console.log(err);
