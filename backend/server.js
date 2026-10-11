@@ -46,6 +46,10 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+transporter.verify((error) => {
+  if (error) console.log("SMTP FAILED:", error.message);
+  else console.log("SMTP OK");
+});
 
 const now = new Date().toLocaleDateString("en-IN").replace(/\//g, "-");
 app.post("/api/sendmail", async (req, res) => {
