@@ -68,10 +68,11 @@ app.post("/api/sendmail", async (req, res) => {
          html: `<h2>${subject}</h2><p>${message}</p>`,
        });
         sent++;
-        
+        res.json({ success: true });
      } catch (error) {
        console.log("Failed for", emails[i], error.message);
-       failed.push(emails[i]);
+        failed.push(emails[i]);
+        res.status(500).json({ success: false, error: err.message });
      }
    }
    let mailstatus;
