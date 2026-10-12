@@ -86,13 +86,10 @@ const Compose = (props) => {
                emails,
                message
             });
-            if (response) {
                setSubject("");
                setMessage("");
                setEmails([]);
                setFileKey((k) => k + 1);
-             
-            }
             setActiveNav('history');
             alert(response.data.message);
          } catch (error) {
