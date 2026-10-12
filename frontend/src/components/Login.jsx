@@ -15,7 +15,7 @@ const Login = () => {
    const handleLogin = async (e) => {
       e.preventDefault();
       try {
-         const response = await axios.post(`${API_URL}api/login`, { email, password });
+         const response = await axios.post(`${API_URL}/api/login`, { email, password });
          alert(response.data.message);
          setLoggedInUser(email);
          localStorage.setItem("loggedInUser", JSON.stringify(email));
