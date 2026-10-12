@@ -72,7 +72,7 @@ app.post("/api/sendmail", async (req, res) => {
      } catch (error) {
        console.log("Failed for", emails[i], error.message);
         failed.push(emails[i]);
-        res.status(500).json({ success: false, error: err.message });
+        res.status(500).json({ success: false, error: error.message });
      }
    }
    let mailstatus;
