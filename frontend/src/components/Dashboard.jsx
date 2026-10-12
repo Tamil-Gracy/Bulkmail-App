@@ -30,7 +30,7 @@ const Dashboard = () => {
 
    const handleLogout = () => {
       setLoggedInUser(null);
-      navigate("/login");
+      navigate("/");
    }
    return (
       <>
