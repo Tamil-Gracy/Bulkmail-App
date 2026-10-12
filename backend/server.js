@@ -37,7 +37,9 @@ app.post("/api/login", async (req, res) => {
     res.status(401).json({ message: "Login failed..." });
   }
 });
+const dns = require("node:dns");
 
+dns.setDefaultResultOrder("ipv4first");
 //send mail by using nodemailer
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
