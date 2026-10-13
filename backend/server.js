@@ -2,8 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-// const dns = require("dns");
-// dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 const History = require("./models/Email");
 const Admin = require("./models/Admin");
 
@@ -37,22 +36,19 @@ app.post("/api/login", async (req, res) => {
     res.status(401).json({ message: "Login failed..." });
   }
 });
-const dns = require("node:dns");
 
-dns.setDefaultResultOrder("ipv4first");
 //send mail by using nodemailer
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false, // false for 587, true for 465
+  family: 4, // force IPv4 (fixes many timeouts)
+  connectionTimeout: 15000,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASS, // 16-digit App Password, no spaces
   },
-  connectionTimeout: 15000,
-  greetingTimeout: 10000,
-  socketTimeout: 20000,
 });
 transporter.verify((error) => {
   if (error) console.log("SMTP FAILED:", error.message);
@@ -75,11 +71,10 @@ app.post("/api/sendmail", async (req, res) => {
          html: `<h2>${subject}</h2><p>${message}</p>`,
        });
         sent++;
-        res.json({ success: true });
+        
      } catch (error) {
        console.log("Failed for", emails[i], error.message);
-        failed.push(emails[i]);
-        res.status(500).json({ success: false, message: error.message });
+       failed.push(emails[i]);
      }
    }
    let mailstatus;
